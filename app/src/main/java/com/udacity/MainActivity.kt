@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun download() {
-        downloadUrl.let { url ->
+        downloadUrl?.let { url ->
             val request =
                 DownloadManager.Request(Uri.parse(url))
                     .setTitle(getString(R.string.app_name))
@@ -101,15 +101,9 @@ class MainActivity : AppCompatActivity() {
             val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
             downloadID =
                 downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+        } ?: run {
+            Toast.makeText(applicationContext, "Please select an option", Toast.LENGTH_SHORT).show()
         }
-        if (downloadUrl != "") {
-            Toast.makeText(applicationContext, "Please select an option", Toast.LENGTH_LONG).show()
-            cancelDownload()
-        }
-    }
-
-    private fun cancelDownload() {
-        "changing to see if push will work!"
     }
 
     companion object {
