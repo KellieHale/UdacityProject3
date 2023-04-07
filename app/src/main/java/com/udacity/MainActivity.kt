@@ -1,9 +1,9 @@
 package com.udacity
 
+import android.app.AlertDialog
 import android.app.DownloadManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -11,14 +11,14 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore.Audio.Radio
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.util.AttributeSet
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isEmpty
+import com.udacity.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -63,6 +63,27 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.channel_id),
             getString(R.string.channel_name)
         )
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_settings -> {
+                settingsAlert()
+            }
+        }
+        return true
+    }
+
+    private fun settingsAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.app_name))
+        builder.setMessage(getString(R.string.settings_description))
+        builder.setPositiveButton(getString(R.string.ok), null)
+        builder.show()
     }
 
     private val receiver = object : BroadcastReceiver() {

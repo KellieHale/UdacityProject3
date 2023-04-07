@@ -23,7 +23,7 @@ private val REQUEST_CODE = 0
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val acceptIntent = Intent(applicationContext,DetailActivity::class.java)
+        val acceptIntent = Intent(applicationContext,MainActivity::class.java)
         val acceptPendingIntent: PendingIntent = PendingIntent.getBroadcast(
             applicationContext,
             REQUEST_CODE,

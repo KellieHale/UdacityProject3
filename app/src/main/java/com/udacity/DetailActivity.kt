@@ -1,7 +1,6 @@
 package com.udacity
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -13,7 +12,6 @@ class DetailActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val actionBar = supportActionBar
-
         actionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
