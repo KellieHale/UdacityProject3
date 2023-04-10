@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_detail.*
 import kotlinx.android.synthetic.main.content_main.*
 
 
@@ -90,10 +91,14 @@ class MainActivity : AppCompatActivity() {
 
             (custom_button as LoadingButton).buttonState = ButtonState.Completed
 
-            val status = when (intent?.getIntExtra(DownloadManager.COLUMN_STATUS, -1)) {
-                DownloadManager.STATUS_SUCCESSFUL -> "Successful"
-                else -> "Failure"
-            }
+            val status = intent?.action?.let { action ->
+                if (action == DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                    { "Successful"
+                } else {
+                    "Failure"
+                }
+            } ?: run { "Failure" }
+
 
             notificationManager.sendNotification(
                 repositoryUrl = downloadUrl,
