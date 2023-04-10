@@ -7,6 +7,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 import com.udacity.ButtonState.*
+import java.util.logging.Handler
 import kotlin.properties.Delegates
 
 
@@ -23,7 +24,6 @@ class LoadingButton @JvmOverloads constructor(
     private var buttonState: ButtonState by Delegates.observable<ButtonState>(Completed) { p, old, new ->
 
     }
-
 
     init {
     }
