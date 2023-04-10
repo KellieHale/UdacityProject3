@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
-    app:motionDebug="SHOW_PATH"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/content_main_scene"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
@@ -15,11 +12,12 @@
         android:id="@+id/image"
         android:layout_width="475dp"
         android:layout_height="214dp"
+        android:contentDescription="@string/lavendercloud"
+        app:layout_constraintBottom_toTopOf="@id/button_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cloud_lav"
-        android:contentDescription="@string/lavendercloud" />
+        app:srcCompat="@drawable/cloud_lav" />
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -60,13 +58,15 @@
 
     <com.udacity.LoadingButton
         android:id="@+id/custom_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:contentDescription="@string/button_loading"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/margin_normal"
+        app:colorLoading="@color/colorPrimaryDark"
+        app:colorCompleted="@color/colorPrimary"
+        app:textLoading="@string/button_loading"
+        app:textCompleted="@string/button_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_group" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

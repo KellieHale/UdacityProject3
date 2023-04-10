@@ -18,7 +18,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.udacity.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         custom_button.setOnClickListener {
-            download()
+            download(it)
         }
         createChannel(
             getString(R.string.channel_id),
@@ -88,11 +87,19 @@ class MainActivity : AppCompatActivity() {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-//            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+
+            (custom_button as LoadingButton).buttonState = ButtonState.Completed
+
+            val status = when (intent?.getIntExtra(DownloadManager.COLUMN_STATUS, -1)) {
+                DownloadManager.STATUS_SUCCESSFUL -> "Successful"
+                else -> "Failure"
+            }
 
             notificationManager.sendNotification(
-                applicationContext.getText(R.string.notification_description).toString(),
-                applicationContext
+                repositoryUrl = downloadUrl,
+                downloadStatus = status,
+                messageBody = applicationContext.getText(R.string.notification_description).toString(),
+                applicationContext = applicationContext
             )
         }
     }
@@ -109,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun download() {
+    private fun download(view: View) {
         downloadUrl?.let { url ->
             val request =
                 DownloadManager.Request(Uri.parse(url))
@@ -122,6 +129,7 @@ class MainActivity : AppCompatActivity() {
             val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
             downloadID =
                 downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+            (view as LoadingButton).buttonState = ButtonState.Loading
         } ?: run {
             Toast.makeText(applicationContext, "Please select an option", Toast.LENGTH_SHORT).show()
         }
@@ -132,9 +140,9 @@ class MainActivity : AppCompatActivity() {
         private const val STARTER_PROJECT_URL =
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
         private const val GLIDE_URL =
-            "https://github.com/bumptech/glide/archive/refs/heads/master.zip"
+            "https://github.com/bumptech/glide/archive/master.zip"
         private const val RETROFIT_URL =
-            "https://github.com/square/retrofit/archive/refs/heads/master.zip"
+            "https://github.com/square/retrofit/archive/master.zip"
     }
 
 }

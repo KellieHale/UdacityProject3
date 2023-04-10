@@ -11,11 +11,16 @@ import androidx.core.app.NotificationCompat
 private val NOTIFICATION_ID = 0
 private val REQUEST_CODE = 0
 
-
-
-    fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
+    fun NotificationManager.sendNotification(
+        repositoryUrl: String?,
+        downloadStatus: String,
+        messageBody: String,
+        applicationContext: Context
+    ) {
 
         val contentIntent = Intent(applicationContext, DetailActivity::class.java)
+        contentIntent.putExtra("repositoryURL", repositoryUrl)
+        contentIntent.putExtra("downloadStatus", downloadStatus)
         val contentPendingIntent = PendingIntent.getActivity(
             applicationContext,
             NOTIFICATION_ID,
@@ -60,8 +65,4 @@ private val REQUEST_CODE = 0
             .setShowWhen(true)
 
         notify(NOTIFICATION_ID, builder.build())
-    }
-
-    fun NotificationManager.cancelNotification() {
-        cancelAll()
     }

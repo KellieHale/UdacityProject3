@@ -2,43 +2,48 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ConstraintSet android:id="@+id/start">
+    <ConstraintSet
+        android:id="@+id/start">
         <Constraint
-            android:id="@+id/custom_button"
+            android:id="@+id/fileText"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_group"
-            app:layout_constraintEnd_toEndOf="parent">
-            <CustomAttribute
-                app:attributeName="backgroundColor"
-                app:customColorValue="@color/colorPrimary"/>
-        </Constraint>
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/fileName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/statusText"/>
+        <Constraint
+            android:id="@+id/statusText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/statusName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/okButton"
+            app:layout_constraintTop_toBottomOf="@+id/fileText"/>
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/end">
+    <ConstraintSet
+        android:id="@+id/end">
         <Constraint
-            android:id="@+id/custom_button"
+            android:id="@+id/fileText"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_group"
-            app:layout_constraintEnd_toEndOf="parent">
-            <CustomAttribute
-                app:attributeName="backgroundColor"
-                app:customColorValue="@color/colorPrimaryDark"/>
-        </Constraint>
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/fileName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/statusText"/>
+        <Constraint
+            android:id="@+id/statusText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/statusName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/okButton"
+            app:layout_constraintTop_toBottomOf="@+id/fileText"/>
     </ConstraintSet>
     <Transition
-        app:constraintSetStart="@+id/start"
-        app:constraintSetEnd="@+id/end">
-        <OnClick
-            app:clickAction="transitionToEnd"
-            app:targetId="@id/custom_button"/>
-    </Transition>
+        app:autoTransition="animateToEnd"
+        app:constraintSetStart="@id/start"
+        app:constraintSetEnd="@id/end"/>
 
 </MotionScene>
