@@ -64,13 +64,13 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="@dimen/margin_normal"
-        app:colorCompleted="@color/colorPrimary"
-        app:colorLoading="@color/colorPrimaryDark"
+        app:cCompleted="@color/colorPrimary"
+        app:cLoading="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_group"
-        app:textCompleted="@string/button_name"
-        app:textLoading="@string/button_loading" />
+        app:tCompleted="@string/button_name"
+        app:tLoading="@string/button_loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

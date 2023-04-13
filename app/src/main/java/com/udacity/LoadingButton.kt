@@ -14,36 +14,12 @@ class LoadingButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private val circleRadius = context.resources.getDimension(R.dimen.circleRadius)
-    private var widthSize = 0
-    private var heightSize = 0
-    private var colorLoading: Int = 0
-    private var colorCompleted: Int = 0
-    private var textLoading: String? = null
-    private var textCompleted: String? = null
-    private var text: String = ""
-    private var progress = 0.0F
-
-    private val colorPaint = Paint().apply {
-        style = Paint.Style.FILL
-    }
-    private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.getColor(R.color.white)
-        textAlign = Paint.Align.CENTER
-        textSize = context.resources.getDimension(R.dimen.default_text_size)
-    }
-    private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.getColor(R.color.colorAccent)
-    }
-
-    private var valueAnimator = ValueAnimator()
-
     var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { _, _, new ->
         when (new) {
             ButtonState.Loading -> {
-                text = textLoading ?: ""
+                text = textLoad ?: ""
                 valueAnimator = ValueAnimator.ofFloat(0F, 1F).apply {
-                    duration = 3000L
+                    duration = 2000L
                     repeatCount = ValueAnimator.INFINITE
                     addUpdateListener {
                         progress = it.animatedValue as Float
@@ -55,14 +31,14 @@ class LoadingButton @JvmOverloads constructor(
             ButtonState.Completed -> {
                 valueAnimator.cancel()
                 valueAnimator = ValueAnimator.ofFloat(progress, 1F).apply {
-                    duration = 1000L
+                    duration = 2000L
                     addUpdateListener {
                         progress = it.animatedValue as Float
                         invalidate()
                     }
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
-                            text = textCompleted ?: ""
+                            text = textComp ?: ""
                             progress = 0.0F
                             invalidate()
                         }
@@ -75,14 +51,40 @@ class LoadingButton @JvmOverloads constructor(
         invalidate()
     }
 
+    private val cirPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = context.getColor(R.color.colorAccent)
+    }
+
+    private val tPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = context.getColor(R.color.white)
+        textAlign = Paint.Align.CENTER
+        textSize = context.resources.getDimension(R.dimen.default_text_size)
+    }
+
+    private val cPaint = Paint().apply {
+        style = Paint.Style.FILL
+    }
+
+    private val radius = context.resources.getDimension(R.dimen.radius)
+    private var wSize = 0
+    private var hSize = 0
+    private var colorLoad: Int = 0
+    private var colorComp: Int = 0
+    private var textLoad: String? = null
+    private var textComp: String? = null
+    private var text: String = ""
+    private var progress = 0.0F
+
+    private var valueAnimator = ValueAnimator()
+
     init {
         context.theme.obtainStyledAttributes(attrs, R.styleable.LoadingButton, 0, 0).apply {
-            colorLoading = getColor(R.styleable.LoadingButton_colorLoading, 0)
-            colorCompleted = getColor(R.styleable.LoadingButton_colorCompleted, 0)
-            textLoading = getString(R.styleable.LoadingButton_textLoading)
-            textCompleted = getString(R.styleable.LoadingButton_textCompleted)
+            colorLoad = getColor(R.styleable.LoadingButton_cLoading, 0)
+            colorComp = getColor(R.styleable.LoadingButton_cCompleted, 0)
+            textLoad = getString(R.styleable.LoadingButton_tLoading)
+            textComp = getString(R.styleable.LoadingButton_tCompleted)
         }
-        text = textCompleted ?: ""
+        text = textComp ?: ""
         progress = 0.0F
     }
 
@@ -90,37 +92,37 @@ class LoadingButton @JvmOverloads constructor(
         super.onDraw(canvas)
         canvas?.let {
 
-            canvas.drawColor(colorCompleted)
+            canvas.drawColor(colorComp)
 
-            colorPaint.color = colorLoading
+            cPaint.color = colorLoad
             canvas.drawRect(
                 0F,
                 0F,
-                widthSize.toFloat() * progress,
-                heightSize.toFloat(),
-                colorPaint
+                wSize.toFloat() * progress,
+                hSize.toFloat(),
+                cPaint
             )
 
-            val textHeight = textPaint.descent() - textPaint.ascent()
-            val textOffset = textHeight / 2 - textPaint.descent()
+            val textH = tPaint.descent() - tPaint.ascent()
+            val textOffset = textH / 1 - tPaint.descent()
             canvas.drawText(
                 text,
-                widthSize.toFloat() / 2,
-                heightSize.toFloat() / 2 + textOffset,
-                textPaint
+                wSize.toFloat() / 2,
+                hSize.toFloat() / 2 + textOffset,
+                tPaint
             )
 
-            val arcX = 3 * widthSize.toFloat() / 4
-            val arcY = heightSize.toFloat() / 2
+            val arcX = 3 * wSize.toFloat() / 4
+            val arcY = hSize.toFloat() / 2
             canvas.drawArc(
                 arcX,
-                arcY - circleRadius,
-                circleRadius * 2 + arcX,
-                circleRadius + arcY,
+                arcY - radius,
+                radius * 2 + arcX,
+                radius + arcY,
                 0F,
                 360F * progress,
                 true,
-                circlePaint
+                cirPaint
             )
         }
     }
@@ -133,8 +135,8 @@ class LoadingButton @JvmOverloads constructor(
             heightMeasureSpec,
             0
         )
-        widthSize = w
-        heightSize = h
+        wSize = w
+        hSize = h
         setMeasuredDimension(w, h)
     }
 }

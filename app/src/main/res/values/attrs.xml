@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LoadingButton">
-        <attr name="colorLoading" format="color" />
-        <attr name="colorCompleted" format="color" />
-        <attr name="textLoading" format="string" />
-        <attr name="textCompleted" format="string" />
+        <attr name="cLoading" format="color" />
+        <attr name="cCompleted" format="color" />
+        <attr name="tLoading" format="string" />
+        <attr name="tCompleted" format="string" />
     </declare-styleable>
 </resources>
