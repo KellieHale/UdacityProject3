@@ -59,18 +59,18 @@
             android:textSize="20sp" />
     </RadioGroup>
 
-    <com.udacity.LoadingButton
+    <com.udacity.LoadButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="@dimen/margin_normal"
-        app:cCompleted="@color/colorPrimary"
-        app:cLoading="@color/colorPrimaryDark"
+        app:loadingColorCompleted="@color/colorPrimary"
+        app:loadingColorStart="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_group"
-        app:tCompleted="@string/button_name"
-        app:tLoading="@string/button_loading" />
+        app:loadingTextStarted="@string/button_loading"
+        app:loadingTextCompleted="@string/button_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

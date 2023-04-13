@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
 
-            (custom_button as LoadingButton).buttonState = ButtonState.Completed
+            (custom_button as LoadButton).state = ButtonState.Completed
 
             val status = intent?.action?.let { action ->
                 if (action == DownloadManager.ACTION_DOWNLOAD_COMPLETE)
@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
             downloadID =
                 downloadManager.enqueue(request)// enqueue puts the download request in the queue.
-            (view as LoadingButton).buttonState = ButtonState.Loading
+            (view as LoadButton).state = ButtonState.Loading
         } ?: run {
             Toast.makeText(applicationContext, "Please select an option", Toast.LENGTH_SHORT).show()
         }
