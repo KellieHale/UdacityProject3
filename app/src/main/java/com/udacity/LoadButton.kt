@@ -64,7 +64,7 @@ class LoadButton @JvmOverloads constructor(
                 valueAnimator = ValueAnimator.ofFloat(loadingProgress, ANIMATION_END_VALUE).apply {
                     duration = ANIMATION_DURATION
                     addUpdateListener {
-                        loadingProgress = it.animatedValue as Float
+                        loadingProgress = 0.0f
                         invalidate()
                     }
                     addListener(object : AnimatorListenerAdapter() {

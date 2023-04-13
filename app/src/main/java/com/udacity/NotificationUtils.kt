@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
+import com.google.android.material.internal.NavigationMenuItemView
+import com.google.android.material.navigation.NavigationView
 
 private val NOTIFICATION_ID = 0
 private val REQUEST_CODE = 0
@@ -26,14 +28,6 @@ private val REQUEST_CODE = 0
             NOTIFICATION_ID,
             contentIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        val acceptIntent = Intent(applicationContext,MainActivity::class.java)
-        val acceptPendingIntent: PendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            REQUEST_CODE,
-            acceptIntent,
-            PendingIntent.FLAG_IMMUTABLE
         )
 
         val cloudImage = BitmapFactory.decodeResource(
@@ -60,9 +54,8 @@ private val REQUEST_CODE = 0
             .addAction(
                 R.drawable.cloud,
                 applicationContext.getString(R.string.notification_button),
-                acceptPendingIntent
+                contentPendingIntent
             )
-            .setShowWhen(true)
 
         notify(NOTIFICATION_ID, builder.build())
     }
